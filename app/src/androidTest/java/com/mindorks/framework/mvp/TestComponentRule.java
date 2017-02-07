@@ -16,6 +16,7 @@
 package com.mindorks.framework.mvp;
 
 import android.content.Context;
+import android.support.test.InstrumentationRegistry;
 
 import com.mindorks.framework.mvp.data.DataManager;
 import com.mindorks.framework.mvp.di.component.DaggerTestComponent;
@@ -34,9 +35,18 @@ public class TestComponentRule implements TestRule {
 
     private TestComponent mTestComponent;
     private Context mContext;
+    private MvpApp mvpApp;
 
-    public TestComponentRule(Context context) {
+    public TestComponentRule(Context context){
         mContext = context;
+        try {
+            mvpApp = (MvpApp)InstrumentationRegistry.getInstrumentation().newApplication(
+                    this.getClass().getClassLoader()
+                    , MvpApp.class.getCanonicalName()
+                    , context);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public Context getContext() {
@@ -48,7 +58,7 @@ public class TestComponentRule implements TestRule {
     }
 
     private void setupDaggerTestComponentInApplication() {
-        MvpApp application = MvpApp.get(mContext);
+        MvpApp application = MvpApp.get(mvpApp);
         mTestComponent = DaggerTestComponent.builder()
                 .applicationTestModule(new ApplicationTestModule(application))
                 .build();
