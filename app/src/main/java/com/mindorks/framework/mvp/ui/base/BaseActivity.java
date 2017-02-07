@@ -39,8 +39,9 @@ import com.mindorks.framework.mvp.ui.login.LoginActivity;
 import com.mindorks.framework.mvp.utils.CommonUtils;
 import com.mindorks.framework.mvp.utils.NetworkUtils;
 
-import butterknife.Unbinder;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import butterknife.Unbinder;
 
 /**
  * Created by janisharali on 27/01/17.
@@ -59,7 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView,
         super.onCreate(savedInstanceState);
         mActivityComponent = DaggerActivityComponent.builder()
                 .activityModule(new ActivityModule(this))
-                .applicationComponent(MvpApp.get(this).getComponent())
+                .applicationComponent(MvpApp.get(this.getApplication()).getComponent())
                 .build();
 
     }

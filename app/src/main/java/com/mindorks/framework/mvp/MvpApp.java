@@ -16,7 +16,6 @@
 package com.mindorks.framework.mvp;
 
 import android.app.Application;
-import android.content.Context;
 
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.interceptors.HttpLoggingInterceptor.Level;
@@ -25,9 +24,9 @@ import com.mindorks.framework.mvp.di.component.ApplicationComponent;
 import com.mindorks.framework.mvp.di.component.DaggerApplicationComponent;
 import com.mindorks.framework.mvp.di.module.ApplicationModule;
 
-import javax.inject.Inject;
-
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
+
+import javax.inject.Inject;
 
 
 /**
@@ -44,8 +43,8 @@ public class MvpApp extends Application {
 
     private ApplicationComponent mApplicationComponent;
 
-    public static MvpApp get(Context context) {
-        return (MvpApp) context.getApplicationContext();
+    public static MvpApp get(Application application) {
+        return (MvpApp) application;
     }
 
     @Override
